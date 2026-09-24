@@ -24,19 +24,15 @@ GeoPeak3D is an audio-only framework for single-source 3D localization in reverb
 - **Frustum-native encoder:** separate image-plane and ray-wise operators respect calibrated viewing geometry.
 - **Continuous 3D output:** residual response correction and offset-aware expectation avoid voxel-center quantization.
 
-```mermaid
-flowchart LR
-    A[stGCF volume<br/>9 × 96 × 120] --> B[Layer-wise NMS<br/>Top-4 per depth]
-    B --> C[11-D candidate tokens<br/>global weighting]
-    C --> D[Gaussian geometry field]
-    A --> E[Dense response features]
-    D --> F[Anisotropic frustum fusion]
-    E --> F
-    A --> G[Physics-referenced residual]
-    F --> G
-    G --> H[Offset-aware expectation]
-    H --> I[Continuous 3D position]
-```
+## Architecture
+
+<div align="center">
+  <a href="assets/network-architecture.pdf">
+    <img src="assets/network-architecture.png" width="100%" alt="GeoPeak3D network architecture">
+  </a>
+  <br>
+  <sub>GeoPeak3D network architecture. Click the figure to open the vector PDF.</sub>
+</div>
 
 ## Qualitative demo
 
@@ -60,7 +56,7 @@ GeoPeak3D/
 │   ├── train.py        # model training entry point
 │   ├── evaluate.py     # sequence-camera 3D/2D evaluation
 │   └── smoke_test.py   # lightweight model/API check
-├── assets/             # README figures and demo-video slot
+├── assets/             # architecture figure and demo-video slot
 ├── requirements.txt
 └── LICENSE
 ```

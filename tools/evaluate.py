@@ -34,7 +34,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     device = torch.device(args.device)
-    checkpoint = torch.load(args.checkpoint, map_location="cpu")
+    checkpoint = torch.load(args.checkpoint, map_location="cpu", weights_only=True)
     model = GeoPeak3D()
     model.load_state_dict(checkpoint["model_state"], strict=True)
     model.to(device).eval()

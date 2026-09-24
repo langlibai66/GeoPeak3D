@@ -9,13 +9,13 @@
 [![License](https://img.shields.io/badge/License-MIT-2ea44f.svg)](LICENSE)
 [![Dataset](https://img.shields.io/badge/Dataset-AV16.3-6f42c1.svg)](http://www.glat.info/ma/av16.3/)
 
-[[Demo](#qualitative-demo)] · [[Data](#data-preparation)] · [[Training](#training)] · [[Evaluation](#evaluation)]
+[[Architecture](#architecture)] · [[Installation](#installation)] · [[Data](#data-preparation)] · [[Training](#training)] · [[Evaluation](#evaluation)] · [[Demo](#qualitative-demo)]
 
 </div>
 
 ---
 
-GeoPeak3D is an audio-only framework for single-source 3D localization in reverberant environments. Instead of committing to the strongest stGCF response, it preserves competing peaks, represents their weighted geometry on a calibrated view frustum, and learns to correct the acoustic response distribution. Inference uses microphone signals and camera calibration parameters—no RGB image is required.
+GeoPeak3D is an audio-only model for single-source 3D localization in reverberant environments. Given a calibrated stGCF volume, it retains competing response peaks, models their geometry on the view frustum, and predicts a continuous 3D source position. Inference requires microphone signals and camera calibration parameters, but no RGB images.
 
 ## Highlights
 
@@ -37,31 +37,10 @@ GeoPeak3D is an audio-only framework for single-source 3D localization in reverb
 ## Qualitative demo
 
 <div align="center">
-  <a href="assets/demo.mp4">
-    <img src="assets/demo-cover.svg" width="88%" alt="GeoPeak3D qualitative demo placeholder">
-  </a>
+  <img src="assets/demo-cover.svg" width="88%" alt="GeoPeak3D qualitative demo placeholder">
   <br>
-  <sub>Reserved for a qualitative demo. Add <code>assets/demo.mp4</code> or replace this link with a GitHub-hosted video URL.</sub>
+  <sub>Qualitative results will be added here.</sub>
 </div>
-
-## Repository layout
-
-```text
-GeoPeak3D/
-├── geopeak3d/
-│   ├── model.py        # complete GeoPeak3D architecture
-│   ├── data.py         # AV16.3 stGCF dataset interface
-│   └── geometry.py     # calibrated 3D back-projection
-├── tools/
-│   ├── train.py        # model training entry point
-│   ├── evaluate.py     # sequence-camera 3D/2D evaluation
-│   └── smoke_test.py   # lightweight model/API check
-├── assets/             # architecture figure and demo-video slot
-├── requirements.txt
-└── LICENSE
-```
-
-This repository contains the core implementation only. Raw datasets, generated stGCF volumes, experiment logs, and checkpoints are intentionally excluded.
 
 ## Installation
 
@@ -74,17 +53,19 @@ conda activate geopeak3d
 pip install -e .
 ```
 
-Verify the installation on CPU:
+Optional sanity check:
 
 ```bash
-python tools/smoke_test.py
+python -m unittest discover -s tests -v
 ```
 
 ## Data preparation
 
-1. Download AV16.3 sequences `01`, `02`, `03`, `08`, `11`, and `12`, together with `cam.mat` and `rigid010203.mat` calibration files.
-2. Use the official [STNet repository](https://github.com/liyidi/STNet) to perform audio framing and generate the stGCF response volumes. Follow its `tools/prepareAudio.py`, `tools/prepare_gccphat.py`, and `GCF/stGCF.py` pipeline.
-3. Arrange the generated arrays in the layout below. This repository does **not** redistribute AV16.3 or generated data.
+This repository starts from precomputed stGCF volumes; raw-audio preprocessing is not included.
+
+1. Download AV16.3 sequences `01`, `02`, `03`, `08`, `11`, and `12`, together with the `cam.mat` and `rigid010203.mat` calibration files.
+2. Use [STNet](https://github.com/liyidi/STNet) to perform audio framing and generate the stGCF response volumes. The relevant upstream scripts are `tools/prepareAudio.py`, `tools/prepare_gccphat.py`, and `GCF/stGCF.py`.
+3. Convert the generated outputs to NumPy arrays and arrange them as shown below. AV16.3 and generated data are not redistributed in this repository.
 
 ```text
 data/
@@ -106,7 +87,7 @@ data/
         └── gt_camera_depths_m.npy  # [frames, 3]
 ```
 
-The default split uses `seq01+seq02` for training, `seq03` for validation, and `seq08+seq11+seq12` for testing. Each camera view is treated as an independent sample.
+The default split is `seq01+seq02` for training, `seq03` for validation, and `seq08+seq11+seq12` for testing. Camera views are treated as independent samples.
 
 ## Training
 
@@ -114,7 +95,7 @@ The default configuration uses AdamW, learning rate `1e-3`, weight decay `1e-2`,
 
 ```bash
 python tools/train.py \
-  --data-root /path/to/data \
+  --data-root data \
   --output-dir runs/geopeak3d \
   --batch-size 32 \
   --epochs 15 \
@@ -122,19 +103,41 @@ python tools/train.py \
   --seed 7
 ```
 
+Training writes `best.pt`, `latest.pt`, and `history.csv` to the selected output directory.
+
 ## Evaluation
 
 `--calibration-root` must contain the AV16.3 `session08`, `session09`, and `session10` directories, each with `cam.mat` and `rigid010203.mat`.
 
 ```bash
 python tools/evaluate.py \
-  --data-root /path/to/data \
-  --calibration-root /path/to/av16.3 \
+  --data-root data \
+  --calibration-root av16.3 \
   --checkpoint runs/geopeak3d/best.pt \
   --output results/test_metrics.csv
 ```
 
 The evaluator writes per-sequence/per-camera 3D MAE (cm) and 2D MAE (px), then prints the nine-domain averages.
+
+## Repository layout
+
+```text
+GeoPeak3D/
+├── geopeak3d/
+│   ├── model.py        # GeoPeak3D architecture
+│   ├── data.py         # stGCF dataset interface
+│   └── geometry.py     # calibrated 3D back-projection
+├── tools/
+│   ├── train.py        # training entry point
+│   └── evaluate.py     # evaluation entry point
+├── tests/
+│   └── test_model.py   # lightweight model test
+├── assets/             # architecture figure and demo assets
+├── pyproject.toml
+└── LICENSE
+```
+
+The repository contains the core implementation only. Datasets, generated stGCF volumes, experiment logs, and checkpoints are intentionally excluded.
 
 ## Acknowledgements
 

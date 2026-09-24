@@ -28,5 +28,5 @@
   <path d="M620 292 L620 372 L684 332 Z" fill="#123d57"/>
   <text x="640" y="72" fill="#f8fbff" font-family="Arial, sans-serif" font-size="38" font-weight="700" text-anchor="middle">GeoPeak3D</text>
   <text x="640" y="112" fill="#b9d8e8" font-family="Arial, sans-serif" font-size="21" text-anchor="middle">Qualitative 3D acoustic localization demo</text>
-  <text x="640" y="585" fill="#d7e9f2" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">Video coming soon · replace assets/demo.mp4 before release</text>
+  <text x="640" y="585" fill="#d7e9f2" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">Qualitative demo coming soon</text>
 </svg>

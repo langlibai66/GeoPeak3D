@@ -103,7 +103,17 @@ def main() -> None:
         val_metrics = run_epoch(model, val_loader, device)
         row = {"epoch": epoch, **{f"train_{k}": v for k, v in train_metrics.items()}, **{f"val_{k}": v for k, v in val_metrics.items()}}
         history.append(row)
-        checkpoint = {"epoch": epoch, "model_state": model.state_dict(), "args": vars(args), "best_val_pixel": min(best, val_metrics["pixel"])}
+        checkpoint = {
+            "epoch": epoch,
+            "model_state": model.state_dict(),
+            "config": {
+                "data_root": str(args.data_root),
+                "seed": args.seed,
+                "learning_rate": args.learning_rate,
+                "batch_size": args.batch_size,
+            },
+            "best_val_pixel": min(best, val_metrics["pixel"]),
+        }
         torch.save(checkpoint, args.output_dir / "latest.pt")
         if val_metrics["pixel"] < best:
             best, stale = val_metrics["pixel"], 0

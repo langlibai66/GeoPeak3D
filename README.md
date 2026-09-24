@@ -41,10 +41,10 @@ GeoPeak3D is an audio-only model for single-source 3D localization in reverberan
     <img src="assets/demo.gif" width="100%" alt="GeoPeak3D continuous localization demo">
   </a>
   <br>
-  <sub>58 consecutive frames from AV16.3 sequence 12, camera 2. Click the preview for the 1080p video.</sub>
+  <sub>36 consecutive frames from AV16.3 sequence 08, camera 2. Click the preview for the high-resolution video.</sub>
 </div>
 
-The side-by-side visualization compares the raw stGCF response with the GeoPeak3D-corrected response on every frame of a 3.9-second continuous window. Green overlays show depth-collapsed acoustic response maps. RGB frames are used only for visualization; localization remains audio-only.
+The visualization places ground truth, the raw stGCF maximum, and the GeoPeak3D estimate in the same image coordinate system over a 2.4-second continuous window. Green overlays show the depth-collapsed stGCF response. RGB frames are used only for visualization; localization remains audio-only.
 
 ## Installation
 

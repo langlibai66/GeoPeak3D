@@ -1,4 +1,4 @@
-"""Core GeoPeak3D network described in the paper.
+"""Core GeoPeak3D network.
 
 The implementation keeps only the released method: layer-wise NMS/Top-K,
 learned global candidate weighting, Gaussian geometry projection, anisotropic

@@ -9,11 +9,7 @@
 [![License](https://img.shields.io/badge/License-MIT-2ea44f.svg)](LICENSE)
 [![Dataset](https://img.shields.io/badge/Dataset-AV16.3-6f42c1.svg)](http://www.glat.info/ma/av16.3/)
 
-**Chenxu Yang · Chenyu Wang · Zhenhuan Xu · Yidi Li · Dimitrios Kanoulas**
-
-Taiyuan University of Technology · University College London
-
-[[Paper](#citation)] · [[Demo](#qualitative-demo)] · [[Data](#data-preparation)] · [[Training](#training)] · [[Evaluation](#evaluation)]
+[[Demo](#qualitative-demo)] · [[Data](#data-preparation)] · [[Training](#training)] · [[Evaluation](#evaluation)]
 
 </div>
 
@@ -42,20 +38,6 @@ flowchart LR
     H --> I[Continuous 3D position]
 ```
 
-## Results on AV16.3
-
-The reported values are averages over ten independent runs. Lower is better.
-
-| Method | seq08 3D MAE (cm) | seq11 | seq12 | Average | 2D MAE (px) |
-|:--|--:|--:|--:|--:|--:|
-| GCF | 38.9 | 34.0 | 48.0 | 40.3 | 37.8 |
-| stGCF | 31.1 | 27.9 | 39.2 | 32.7 | 22.9 |
-| stGCF + soft-argmax | 18.6 | 20.6 | 26.9 | 22.0 | 21.5 |
-| ViDAL-Net | 18.9±0.1 | 26.7±0.7 | 28.1±0.1 | 24.6±0.2 | 21.6±0.4 |
-| **GeoPeak3D** | **16.6±1.0** | **18.5±0.4** | **24.0±0.7** | **19.7±0.4** | **18.1±0.5** |
-
-On samples whose strongest raw stGCF peak is misleading, GeoPeak3D reduces 3D MAE from **54.6 cm** to **28.6 cm**.
-
 ## Qualitative demo
 
 <div align="center">
@@ -63,7 +45,7 @@ On samples whose strongest raw stGCF peak is misleading, GeoPeak3D reduces 3D MA
     <img src="assets/demo-cover.svg" width="88%" alt="GeoPeak3D qualitative demo placeholder">
   </a>
   <br>
-  <sub>Reserved for the paper-effect video. Add <code>assets/demo.mp4</code> or replace this link with a GitHub-hosted video URL before release.</sub>
+  <sub>Reserved for a qualitative demo. Add <code>assets/demo.mp4</code> or replace this link with a GitHub-hosted video URL.</sub>
 </div>
 
 ## Repository layout
@@ -75,7 +57,7 @@ GeoPeak3D/
 │   ├── data.py         # AV16.3 stGCF dataset interface
 │   └── geometry.py     # calibrated 3D back-projection
 ├── tools/
-│   ├── train.py        # paper training protocol
+│   ├── train.py        # model training entry point
 │   ├── evaluate.py     # sequence-camera 3D/2D evaluation
 │   └── smoke_test.py   # lightweight model/API check
 ├── assets/             # README figures and demo-video slot
@@ -83,7 +65,7 @@ GeoPeak3D/
 └── LICENSE
 ```
 
-Only the code required by the paper is included. Raw datasets, generated stGCF volumes, experiment logs, and checkpoints are intentionally excluded.
+This repository contains the core implementation only. Raw datasets, generated stGCF volumes, experiment logs, and checkpoints are intentionally excluded.
 
 ## Installation
 
@@ -128,11 +110,11 @@ data/
         └── gt_camera_depths_m.npy  # [frames, 3]
 ```
 
-The paper uses `seq01+seq02` for training, `seq03` for validation, and `seq08+seq11+seq12` for testing. Each camera view is treated as an independent sample.
+The default split uses `seq01+seq02` for training, `seq03` for validation, and `seq08+seq11+seq12` for testing. Each camera view is treated as an independent sample.
 
 ## Training
 
-The default command reproduces the paper settings: AdamW, learning rate `1e-3`, weight decay `1e-2`, batch size `32`, at most `15` epochs, and early-stopping patience `5`.
+The default configuration uses AdamW, learning rate `1e-3`, weight decay `1e-2`, batch size `32`, at most `15` epochs, and early-stopping patience `5`.
 
 ```bash
 python tools/train.py \
@@ -143,8 +125,6 @@ python tools/train.py \
   --patience 5 \
   --seed 7
 ```
-
-For the ten-run result in the paper, repeat training with ten independent random seeds and report mean ± standard deviation.
 
 ## Evaluation
 
@@ -158,19 +138,7 @@ python tools/evaluate.py \
   --output results/test_metrics.csv
 ```
 
-The evaluator writes per-sequence/per-camera 3D MAE (cm) and 2D MAE (px), then prints the nine-domain averages used in the paper.
-
-## Citation
-
-If this work is useful in your research, please cite it. Replace the venue fields below with the final publication metadata when available.
-
-```bibtex
-@article{yang2026geopeak3d,
-  title   = {GeoPeak3D: Geometry-Guided Multi-Peak Disambiguation for 3D Acoustic Source Localization},
-  author  = {Yang, Chenxu and Wang, Chenyu and Xu, Zhenhuan and Li, Yidi and Kanoulas, Dimitrios},
-  year    = {2026}
-}
-```
+The evaluator writes per-sequence/per-camera 3D MAE (cm) and 2D MAE (px), then prints the nine-domain averages.
 
 ## Acknowledgements
 

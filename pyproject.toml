@@ -9,13 +9,6 @@ description = "Geometry-guided multi-peak disambiguation for 3D acoustic source 
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
-authors = [
-  {name = "Chenxu Yang"},
-  {name = "Chenyu Wang"},
-  {name = "Zhenhuan Xu"},
-  {name = "Yidi Li"},
-  {name = "Dimitrios Kanoulas"},
-]
 dependencies = [
   "numpy>=1.24",
   "scipy>=1.10",

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Train GeoPeak3D with the protocol used in the paper."""
+"""Train GeoPeak3D on STNet-generated stGCF volumes."""
 
 from __future__ import annotations
 

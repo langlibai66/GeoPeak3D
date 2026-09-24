@@ -30,3 +30,4 @@ results/*.csv
 *.mat
 *.wav
 *.mp4
+!assets/demo.mp4

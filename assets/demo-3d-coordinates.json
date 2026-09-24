@@ -1,0 +1,25 @@
+{
+  "sequence": "seq08-1p-0100",
+  "camera": 1,
+  "start": 264,
+  "end": 383,
+  "frames": 120,
+  "input_dataset": "GCF_visual_ssl_aligned",
+  "model_input_heatmap_verified": true,
+  "means": {
+    "raw_3d_m": 0.35585594284649336,
+    "raw_2d_px": 47.41933045448564,
+    "ours_3d_m": 0.15847561287536857,
+    "ours_2d_px": 19.94429843453242
+  },
+  "2d_px": {
+    "ours_better": 81,
+    "raw_better": 39,
+    "ties": 0
+  },
+  "3d_m": {
+    "ours_better": 82,
+    "raw_better": 38,
+    "ties": 0
+  }
+}

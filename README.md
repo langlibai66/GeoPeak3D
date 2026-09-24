@@ -46,6 +46,10 @@ GeoPeak3D is an audio-only model for single-source 3D localization in reverberan
 
 The visualization places ground truth, the raw stGCF maximum, and the GeoPeak3D estimate in the same image coordinate system over an 8-second continuous window at 15 FPS. Green overlays show the depth-collapsed stGCF response. RGB frames are used only for visualization; localization remains audio-only.
 
+Both methods use the same `GCF_visual_ssl_aligned` input volumes. Raw selects the global 3D maximum of each volume; GeoPeak3D uses continuous expectation decoding. The displayed errors are computed from the coordinates used in the animations.
+
+For this selected window, mean 2D error is 47.42 px for Raw and 19.94 px for GeoPeak3D; mean 3D error is 35.59 cm and 15.85 cm, respectively. GeoPeak3D has lower error in 81/120 frames in 2D and 82/120 frames in 3D. These are clip-specific results, not full-test-set metrics. See the [verification summary](assets/demo-3d-coordinates.json).
+
 ### 3D trajectory visualization
 
 <div align="center">
@@ -66,6 +70,10 @@ python tools/render_3d_demo.py \
   --output assets/demo-3d.mp4 --fps 15 \
   --subtitle "AV16.3 · sequence 08 · camera 1 · samples 264–383 · 15 FPS"
 ```
+
+`tools/build_demo_coordinates.py` rebuilds the coordinate table from the aligned dataset, calibration files, and a model-output NPZ (`raw`, `final`, and `gt` arrays). It checks that the model-input heatmaps match the volumes used for Raw and that image-plane GT labels match before exporting coordinates and metrics. Run `python -m tools.build_demo_coordinates --help` for arguments.
+
+The demo assets were corrected to use matched inputs: earlier versions used Raw prediction records from `GCF_visual_ssl_aligned_m3_1`. Those earlier comparison statistics are superseded by the verified results above.
 
 ## Installation
 

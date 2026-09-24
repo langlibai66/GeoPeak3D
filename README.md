@@ -46,6 +46,27 @@ GeoPeak3D is an audio-only model for single-source 3D localization in reverberan
 
 The visualization places ground truth, the raw stGCF maximum, and the GeoPeak3D estimate in the same image coordinate system over an 8-second continuous window at 15 FPS. Green overlays show the depth-collapsed stGCF response. RGB frames are used only for visualization; localization remains audio-only.
 
+### 3D trajectory visualization
+
+<div align="center">
+  <a href="assets/demo-3d.mp4">
+    <img src="assets/demo-3d.gif" width="85%" alt="Animated 3D ground-truth, raw stGCF, and GeoPeak3D trajectories">
+  </a>
+  <br>
+  <sub>Click to play the 8-second 3D comparison at 15 FPS.</sub>
+</div>
+
+The trajectories accumulate over the same 120 consecutive samples (264–383) as the image-plane demo. Green squares indicate ground truth, red triangles raw stGCF, and blue circles GeoPeak3D. All coordinates are in the calibrated world frame, in metres, with fixed axes and equal spatial scale. This selected qualitative example includes every sample in the window; no temporal smoothing is applied.
+
+The [per-frame coordinates](assets/demo-3d-coordinates.csv) are included to reproduce the animation. With Matplotlib installed and FFmpeg on your path, run:
+
+```bash
+python tools/render_3d_demo.py \
+  --input assets/demo-3d-coordinates.csv \
+  --output assets/demo-3d.mp4 --fps 15 \
+  --subtitle "AV16.3 · sequence 08 · camera 1 · samples 264–383 · 15 FPS"
+```
+
 ## Installation
 
 ```bash

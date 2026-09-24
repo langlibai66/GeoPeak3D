@@ -138,7 +138,7 @@ The evaluator writes per-sequence/per-camera 3D MAE (cm) and 2D MAE (px), then p
 
 ## Acknowledgements
 
-Data preparation and stGCF construction build on [STNet](https://github.com/liyidi/STNet). The repository layout and concise train/test presentation are inspired by [MSMD-AVT](https://github.com/moyitech/MSMD-AVT).
+Data preparation and stGCF construction build on [STNet](https://github.com/liyidi/STNet).
 
 ## License
 

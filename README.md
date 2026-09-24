@@ -73,8 +73,6 @@ python tools/render_3d_demo.py \
 
 `tools/build_demo_coordinates.py` rebuilds the coordinate table from the aligned dataset, calibration files, and a model-output NPZ (`raw`, `final`, and `gt` arrays). It checks that the model-input heatmaps match the volumes used for Raw and that image-plane GT labels match before exporting coordinates and metrics. Run `python -m tools.build_demo_coordinates --help` for arguments.
 
-The demo assets were corrected to use matched inputs: earlier versions used Raw prediction records from `GCF_visual_ssl_aligned_m3_1`. Those earlier comparison statistics are superseded by the verified results above.
-
 ## Installation
 
 ```bash

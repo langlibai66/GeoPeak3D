@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use GeoPeak3D, please cite the paper below."
+title: "GeoPeak3D: Geometry-Guided Multi-Peak Disambiguation for 3D Acoustic Source Localization"
+type: software
+authors:
+  - family-names: Yang
+    given-names: Chenxu
+  - family-names: Wang
+    given-names: Chenyu
+  - family-names: Xu
+    given-names: Zhenhuan
+  - family-names: Li
+    given-names: Yidi
+  - family-names: Kanoulas
+    given-names: Dimitrios
+repository-code: "https://github.com/langlibai66/GeoPeak3D"
+license: MIT
+version: 0.1.0
+date-released: 2026-09-24

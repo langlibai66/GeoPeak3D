@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">GeoPeak3D qualitative demo placeholder</title>
+  <desc id="desc">A dark blue video cover with a frustum grid and a play button.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071426"/>
+      <stop offset="0.55" stop-color="#102e52"/>
+      <stop offset="1" stop-color="#154e63"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#55d6be" stop-opacity="0.65"/>
+      <stop offset="1" stop-color="#55d6be" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="640" rx="24" fill="url(#bg)"/>
+  <ellipse cx="650" cy="355" rx="410" ry="210" fill="url(#glow)"/>
+  <g fill="none" stroke="#77a9c7" stroke-opacity="0.34" stroke-width="2">
+    <path d="M190 520 L520 120 L1090 520 Z"/>
+    <path d="M300 520 L570 120 M410 520 L620 120 M520 520 L670 120 M630 520 L720 120 M740 520 L770 120 M850 520 L820 120 M960 520 L870 120"/>
+    <path d="M264 430 H1016 M338 340 H942 M412 250 H868 M486 160 H794"/>
+  </g>
+  <g fill="#ffc857">
+    <circle cx="476" cy="352" r="10" opacity="0.55"/>
+    <circle cx="744" cy="272" r="14" opacity="0.7"/>
+    <circle cx="845" cy="404" r="9" opacity="0.48"/>
+  </g>
+  <circle cx="640" cy="332" r="72" fill="#f8fbff" fill-opacity="0.94"/>
+  <path d="M620 292 L620 372 L684 332 Z" fill="#123d57"/>
+  <text x="640" y="72" fill="#f8fbff" font-family="Arial, sans-serif" font-size="38" font-weight="700" text-anchor="middle">GeoPeak3D</text>
+  <text x="640" y="112" fill="#b9d8e8" font-family="Arial, sans-serif" font-size="21" text-anchor="middle">Qualitative 3D acoustic localization demo</text>
+  <text x="640" y="585" fill="#d7e9f2" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">Video coming soon · replace assets/demo.mp4 before release</text>
+</svg>
